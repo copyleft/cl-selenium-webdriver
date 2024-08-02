@@ -2,7 +2,7 @@
 
 [![Quicklisp](http://quickdocs.org/badge/cl-webdriver-client.svg)](http://quickdocs.org/cl-webdriver-client/)
 
-CL Webdriver Client is client library for WebDriver.
+CL WebDriver Client is a client library for WebDriver.
 
 WebDriver is a remote control interface that enables introspection and control of user agents. It provides a platform- and language-neutral wire protocol as a way for out-of-process programs to remotely instruct the behavior of web browsers.
 
@@ -43,10 +43,10 @@ func main() {
 
   (loop
      with div = (find-element "#output")
-     for ouput = (element-text div)
-     while (equal ouput "Waiting for remote server...")
+     for output = (element-text div)
+     while (equal output "Waiting for remote server...")
      do (sleep 0.1)
-     finally (print ouput)))
+     finally (print output)))
 ```
 
 ## Installation
@@ -57,11 +57,23 @@ Available on Quicklisp:
 (ql:quickload :cl-webdriver-client)
 ```
 
-You also need a running instance of selenium-server-standalone version 4.0.0 or above.
+To run, you will need a running instance of Selenium Server version 4.0.0 or later.
 
-[Download](http://www.seleniumhq.org/download/) it and run:
+[Download](https://www.selenium.dev/downloads/) it and run:
+```sh
+java -jar selenium-server.jar standalone
 ```
-java -jar selenium-server-standalone.jar standalone
+
+Alternatively, you can try directly connecting to a standalone WebDriver server implementation, such as [ChromeDriver](https://developer.chrome.com/docs/chromedriver):
+
+```sh
+chromedriver --port=4444
+```
+
+Firefox and other Gecko-based browsers use their own automation driver, [Marionette](https://firefox-source-docs.mozilla.org/testing/marionette/), but Mozilla maintains [geckodriver](https://firefox-source-docs.mozilla.org/testing/geckodriver/), which acts as a proxy between the Marionette and WebDriver protocols.
+
+``` sh
+geckodriver
 ```
 
 ## Documentation
@@ -72,7 +84,7 @@ java -jar selenium-server-standalone.jar standalone
 
 There's a `webdriver-client-utils` package which should reduce boilerplate. 
 
-The exported definitions work with an implicit element. The default implicit element is the current active element. So, it is not neccesary to pass the element you are working with around most of the time.
+The exported definitions work with an implicit element. The default implicit element is the current active element. So, it is not necessary to pass the element you are working with around most of the time.
 
 For example:
 
@@ -118,7 +130,7 @@ If utility function needs an element to work on it defaults to `(active-element)
 ```lisp
 (click) ; click on the current active element.
 ```
-You can also pass a css selector as a last parameter.
+You can also pass a CSS selector as a last parameter.
 ```lisp
 (print (id "#submit")) ; print id the of matched element
 
